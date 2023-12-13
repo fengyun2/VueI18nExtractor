@@ -102,6 +102,16 @@ createDirectoryRecursivelySync(outputDir)
 const langFile = path.resolve(outputDir, 'lang_cn.json');
 const sourceModifiedFile = path.resolve(outputDir,'source_modified.vue');
 
+/**
+ * 生成一个唯一键
+ * @param {String} chineseText
+ * @returns 后续可以考虑将chineseText转为对应的英文
+ */
+function generateI18nKey(chineseText) {
+  // 根据中文文本生成一个唯一的键，例如，通过对文本进行哈希或生成一个别名
+  return `i18nKey_${Math.random().toString(36).substr(2, 10)}_${chineseText}`;
+}
+
 function walkAST(node, callback) {
   if (Array.isArray(node.children)) {
     node.children.forEach((childNode) => {
@@ -127,18 +137,26 @@ const { descriptor } = parse(vueFileContent);
 
 // 3. 遍历AST以识别和提取中文文本
 const texts = []; // 存储提取的中文
+const i18nMap = {}; // 存储中文文本到i18n键的映射
 // 这里需要遍历descriptor.template.ast来找到所有中文文本
 // 本例中我们假设有一个函数walkAST可以遍历AST并寻找中文文本
 walkAST(descriptor.template.ast, (node) => {
   if (node.type === 2 && /[\u4e00-\u9fa5]/.test(node.content)) {
+    // 对于每个包含中文的节点：
+    const i18nKey = generateI18nKey(node.content);
     texts.push(node.content);
+    // 创建一个映射，将中文文本映射到对应的键
+    i18nMap[node.content] = i18nKey;
   }
 });
 
 // 4. 将提取的文本生成为国际化文件(JSON格式)
 const i18nResources = {};
-texts.forEach((text, index) => {
-  i18nResources[`key_${index}`] = text;
+// texts.forEach((text, index) => {
+//   i18nResources[`key_${index}`] = text;
+// });
+Object.entries(i18nMap).forEach(([chineseText, key]) => {
+  i18nResources[key] = chineseText;
 });
 fs.writeFileSync(langFile, JSON.stringify(i18nResources, null, 2));
 
@@ -151,10 +169,16 @@ fs.writeFileSync(langFile, JSON.stringify(i18nResources, null, 2));
 // );
 
 const originalTemplateContent = descriptor.template.content;
-const i18nTemplateContent = originalTemplateContent.replace(
-  /([\u4e00-\u9fa5]+)/g,
-  (match) => `{{$t('${match}')}}`
-);
+// const i18nTemplateContent = originalTemplateContent.replace(
+//   /([\u4e00-\u9fa5]+)/g,
+//   (match) => `{{$t('${match}')}}`
+// );
+let i18nTemplateContent = originalTemplateContent;
+Object.entries(i18nMap).forEach(([chineseText, key]) => {
+  // 使用国际化键替换中文文本
+  const regex = new RegExp(chineseText, 'g');
+  i18nTemplateContent = i18nTemplateContent.replace(regex, `{{ $t('${key}') }}`);
+});
 
 // 6. 使用@vue/compiler-sfc再次编译修改过后的Vue文件
 // 我们在这一步不需要编译模板
