@@ -1,4 +1,12 @@
 {
-  "i18nKey_uhq691xrgm_我是中文标题": "我是中文标题",
-  "i18nKey_kwwwd9nqnf_我是中文内容...": "我是中文内容..."
+  "i18nKey_i59jmmtiau_客户": "客户",
+  "i18nKey_jcpyotl2xo_（选填）": "（选填）",
+  "i18nKey_x2d67kgcma_邀评人": "邀评人",
+  "i18nKey_c59y2hcvap_权重": "权重",
+  "i18nKey_y2szypmmhd_公开": "公开",
+  "i18nKey_hu7495plfh_部分公开": "部分公开",
+  "i18nKey_4vqmbwlu5w_不公开": "不公开",
+  "i18nKey_huck3l3idb_客户、邀评人默认被分享": "客户、邀评人默认被分享",
+  "i18nKey_bsedsicgjh_提交": "提交",
+  "i18nKey_vf9n8e5a4b_保存": "保存"
 }

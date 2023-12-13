@@ -135,18 +135,47 @@ const vueFileContent = fs.readFileSync(sourceFile, 'utf-8');
 // 2. 使用@vue/compiler-sfc解析.vue文件生成AST
 const { descriptor } = parse(vueFileContent);
 
+
 // 3. 遍历AST以识别和提取中文文本
 const texts = []; // 存储提取的中文
 const i18nMap = {}; // 存储中文文本到i18n键的映射
+
+// 这个正则表达式用于匹配包含中文字符之间的任何字符
+const chineseTextRegex = /([\u4e00-\u9fa5]+[\u4e00-\u9fa5\s，。！？：；“”‘’（）《》、－—…【】]+)/g;
 // 这里需要遍历descriptor.template.ast来找到所有中文文本
 // 本例中我们假设有一个函数walkAST可以遍历AST并寻找中文文本
 walkAST(descriptor.template.ast, (node) => {
-  if (node.type === 2 && /[\u4e00-\u9fa5]/.test(node.content)) {
-    // 对于每个包含中文的节点：
-    const i18nKey = generateI18nKey(node.content);
-    texts.push(node.content);
-    // 创建一个映射，将中文文本映射到对应的键
-    i18nMap[node.content] = i18nKey;
+  // 方案 1：简陋版
+  // if (node.type === 2 && /[\u4e00-\u9fa5]/.test(node.content)) {
+  //   // 对于每个包含中文的节点：
+  //   const i18nKey = generateI18nKey(node.content);
+  //   texts.push(node.content);
+  //   // 创建一个映射，将中文文本映射到对应的键
+  //   i18nMap[node.content] = i18nKey;
+  // }
+
+  // 方案 2：支持字符串中可能包含一系列字符，包括但不限于中文字符、拉丁字母、数字、空格以及特殊字符。
+  // 遍历所有类型为文本的节点（node.type === 2）
+  if (node.type === 2) {
+    let matches;
+    while ((matches = chineseTextRegex.exec(node.content)) !== null) {
+      if (matches.index === chineseTextRegex.lastIndex) {
+        chineseTextRegex.lastIndex++;
+      }
+      matches.forEach((match) => {
+        if (match) {
+          const trimmedMatch = match.trim();
+          if (trimmedMatch) {
+            // 对于每个包含中文的节点：
+            const nodeContent = node.content?.trim?.();
+            const i18nKey = generateI18nKey(nodeContent);
+            texts.push(trimmedMatch);
+            // 创建一个映射，将中文文本映射到对应的键
+            i18nMap[nodeContent] = i18nKey;
+          }
+        }
+      });
+    }
   }
 });
 
@@ -158,6 +187,7 @@ const i18nResources = {};
 Object.entries(i18nMap).forEach(([chineseText, key]) => {
   i18nResources[key] = chineseText;
 });
+console.warn(i18nResources)
 fs.writeFileSync(langFile, JSON.stringify(i18nResources, null, 2));
 
 // 5. 将原始中文文本替换为国际化函数调用
@@ -174,6 +204,17 @@ const originalTemplateContent = descriptor.template.content;
 //   (match) => `{{$t('${match}')}}`
 // );
 let i18nTemplateContent = originalTemplateContent;
+// 注意：为了避免部分替换冲突，从最长的文本开始替换，以确保较短的字符串不会先被替换掉
+
+// 方案 1：简陋版
+// Object.entries(i18nMap).forEach(([chineseText, key]) => {
+//   // 使用国际化键替换中文文本
+//   const regex = new RegExp(chineseText, 'g');
+//   i18nTemplateContent = i18nTemplateContent.replace(regex, `{{ $t('${key}') }}`);
+// });
+
+// 方案 2：
+// Object.keys(i18nMap).sort((a, b) => b.length - a.length)
 Object.entries(i18nMap).forEach(([chineseText, key]) => {
   // 使用国际化键替换中文文本
   const regex = new RegExp(chineseText, 'g');
