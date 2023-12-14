@@ -12,3 +12,8 @@
     source_modified.vue     # 国际化键值替换后的文件
     lang_cn.json            # 提取的中文语言文件
 ```
+
+
+## 参考
+
+1. [i18n-parser](https://github.com/wood3n/i18n-parser)
