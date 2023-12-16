@@ -5,7 +5,8 @@
   "main": "VueI18nExtractor.js",
   "scripts": {
     "start": "node VueI18nExtractor.js",
-    "i18nCleanup": "node i18nCleanup.js"
+    "i18nCleanupOfExcel": "node i18nCleanupOfExcel.js",
+    "i18nCleanupOfJson": "node i18nCleanupOfJson.js"
   },
   "keywords": [],
   "author": "",

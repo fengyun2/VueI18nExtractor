@@ -1,6 +1,6 @@
 const XLSX = require("xlsx");
 
-const DescriptionKey = '描述'
+const DescriptionKey = "描述";
 const LangKey = "语言";
 const EnglishValue = "en_US";
 function isEnglish(row) {
@@ -17,17 +17,22 @@ function transformString(str) {
   // 根据单词数量，处理字符串
   return words
     .map((word, index) => {
+      // 若是变量，则直接返回
+      if (word.startsWith("{") && word.endsWith("}")) {
+        return word;
+      }
+
       // 检查单词是否为介词并转换为小写
-    if (prepositions.has(word.toLowerCase())) {
-      return word.toLowerCase();
-    }
+      if (prepositions.has(word.toLowerCase())) {
+        return word.toLowerCase();
+      }
       // 如果单词数量小于等于3个，或者是第一个单词，将其首字母大写，其余小写
       // if (wordCount <= 3 && !words.includes('', word, 1)) {
       if (wordCount <= 3) {
         return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
       }
       // 超过 3 个单词，只有第一个单词首字母大写，其余小写
-      if(wordCount > 3 && index === 0) {
+      if (wordCount > 3 && index === 0) {
         return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
       }
       // 其它单词全部转为小写
@@ -62,11 +67,11 @@ for (const item of data) {
 // console.log(data)
 
 // 5. 将 JSON 转换回工作表
-const newWorkSheet = XLSX.utils.json_to_sheet(data)
+const newWorkSheet = XLSX.utils.json_to_sheet(data);
 
 // 6. 创建新的工作簿对象并添加工作表
-const newWorkbook = XLSX.utils.book_new()
-XLSX.utils.book_append_sheet(newWorkbook, newWorkSheet, sheetName)
+const newWorkbook = XLSX.utils.book_new();
+XLSX.utils.book_append_sheet(newWorkbook, newWorkSheet, sheetName);
 
 // 7. 写入新的 Excel 文件
-XLSX.writeFile(newWorkbook, './i18n_new.xlsx')
+XLSX.writeFile(newWorkbook, "./i18n_new.xlsx");
