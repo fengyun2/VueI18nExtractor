@@ -1,0 +1,164 @@
+{
+  "el": {
+    "colorpicker": {
+      "confirm": "Ok",
+      "clear": "Clear",
+      "defaultLabel": "Color Picker",
+      "description": "Current color is {color}. press enter to select a new color."
+    },
+    "datepicker": {
+      "now": "Now",
+      "today": "Today",
+      "cancel": "Cancel",
+      "clear": "Clear",
+      "confirm": "Ok",
+      "dateTablePrompt": "Use the arrow keys and enter to select the day of the month",
+      "monthTablePrompt": "Use the arrow keys and enter to select the month",
+      "yearTablePrompt": "Use the arrow keys and enter to select the year",
+      "selectedDate": "Selected Date",
+      "selectDate": "Select Date",
+      "selectTime": "Select Time",
+      "startDate": "Start Date",
+      "startTime": "Start Time",
+      "endDate": "End Date",
+      "endTime": "End Time",
+      "prevYear": "Previous Year",
+      "nextYear": "Next Year",
+      "prevMonth": "Previous Month",
+      "nextMonth": "Next Month",
+      "year": "",
+      "month1": "January",
+      "month2": "February",
+      "month3": "March",
+      "month4": "April",
+      "month5": "May",
+      "month6": "June",
+      "month7": "July",
+      "month8": "August",
+      "month9": "September",
+      "month10": "October",
+      "month11": "November",
+      "month12": "December",
+      "week": "Week",
+      "weeks": {
+        "sun": "Sun",
+        "mon": "Mon",
+        "tue": "Tue",
+        "wed": "Wed",
+        "thu": "Thu",
+        "fri": "Fri",
+        "sat": "Sat"
+      },
+      "weeksFull": {
+        "sun": "Sunday",
+        "mon": "Monday",
+        "tue": "Tuesday",
+        "wed": "Wednesday",
+        "thu": "Thursday",
+        "fri": "Friday",
+        "sat": "Saturday"
+      },
+      "months": {
+        "jan": "Jan",
+        "feb": "Feb",
+        "mar": "Mar",
+        "apr": "Apr",
+        "may": "May",
+        "jun": "Jun",
+        "jul": "Jul",
+        "aug": "Aug",
+        "sep": "Sep",
+        "oct": "Oct",
+        "nov": "Nov",
+        "dec": "Dec"
+      }
+    },
+    "inputNumber": {
+      "decrease": "Decrease Number",
+      "increase": "Increase Number"
+    },
+    "select": {
+      "loading": "Loading",
+      "noMatch": "No Matching Data",
+      "noData": "No Data",
+      "placeholder": "Select"
+    },
+    "dropdown": {
+      "toggleDropdown": "Toggle Dropdown"
+    },
+    "cascader": {
+      "noMatch": "No Matching Data",
+      "loading": "Loading",
+      "placeholder": "Select",
+      "noData": "No Data"
+    },
+    "pagination": {
+      "goto": "Go to",
+      "pagesize": "/page",
+      "total": "Total {total}",
+      "pageClassifier": "",
+      "page": "Page",
+      "prev": "Go to previous page",
+      "next": "Go to next page",
+      "currentPage": "Page {pager}",
+      "prevPages": "Previous {pager} Pages",
+      "nextPages": "Next {pager} Pages",
+      "deprecationWarning": "Deprecated usages detected, please refer to the el-pagination documentation for more details"
+    },
+    "dialog": {
+      "close": "Close This Dialog"
+    },
+    "drawer": {
+      "close": "Close This Dialog"
+    },
+    "messagebox": {
+      "title": "Message",
+      "confirm": "Ok",
+      "cancel": "Cancel",
+      "error": "Illegal Input",
+      "close": "Close This Dialog"
+    },
+    "upload": {
+      "deleteTip": "Press delete to remove",
+      "delete": "Delete",
+      "preview": "Preview",
+      "continue": "Continue"
+    },
+    "slider": {
+      "defaultLabel": "Slider between {min} and {max}",
+      "defaultRangeStartLabel": "Pick Start Value",
+      "defaultRangeEndLabel": "Pick End Value"
+    },
+    "table": {
+      "emptyText": "No Data",
+      "confirmFilter": "Confirm",
+      "resetFilter": "Reset",
+      "clearFilter": "All",
+      "sumText": "Sum"
+    },
+    "tree": {
+      "emptyText": "No Data"
+    },
+    "transfer": {
+      "noMatch": "No Matching Data",
+      "noData": "No Data",
+      "titles": [
+        "List 1",
+        "List 2"
+      ],
+      "filterPlaceholder": "Enter Keyword",
+      "noCheckedFormat": "{total} Items",
+      "hasCheckedFormat": "{checked}/{total} Checked"
+    },
+    "image": {
+      "error": "Failed"
+    },
+    "pageHeader": {
+      "title": "Back"
+    },
+    "popconfirm": {
+      "confirmButtonText": "Yes",
+      "cancelButtonText": "No"
+    }
+  }
+}
