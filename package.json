@@ -4,7 +4,8 @@
   "description": "Extracts Chinese texts from Vue files and prepares them for internationalization.",
   "main": "VueI18nExtractor.js",
   "scripts": {
-    "start": "node VueI18nExtractor.js"
+    "start": "node VueI18nExtractor.js",
+    "i18nCleanup": "node i18nCleanup.js"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +14,7 @@
     "@babel/generator": "^7.23.6",
     "@babel/parser": "^7.23.6",
     "@babel/traverse": "^7.23.6",
-    "@vue/compiler-sfc": "^3.3.11"
+    "@vue/compiler-sfc": "^3.3.11",
+    "xlsx": "^0.18.5"
   }
 }
